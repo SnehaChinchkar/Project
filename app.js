@@ -16,7 +16,6 @@ app.use(flash());
 const adminRouter= require('./routes/adminRouter');
 const userRouter =require('./routes/userRouter');
 const index= require('./routes/index');
-
 const db= require('./config/mongoose-connection');
 app.set("view engine", 'ejs');
 app.use(express.json());
@@ -28,5 +27,9 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use("/",index);
 app.use("/admin",adminRouter);
 app.use("/user",userRouter);
+app.get("/logout",function(req,res){
+    res.cookie("token","");
+    res.redirect("/");
+})
 app.listen(3000);
 
